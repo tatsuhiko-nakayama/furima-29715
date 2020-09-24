@@ -11,7 +11,7 @@
 | first_name         | string  | null: false |
 | last_name_reading  | string  | null: false |
 | first_name_reading | string  | null: false |
-| birthday           | integer | null: false |
+| birthday           | date    | null: false |
 
 ### Association
 
@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column    | Type       | Options                        |
-| --------- | ---------- | ------------------------------ |
-| name      | string     | null: false                    |
-| text      | text       | null: false                    |
-| price     | integer    | null: false                    |
-| genre     | integer    | null: false                    |
-| condition | integer    | null: false                    |
-| ship_fee  | integer    | null: false                    |
-| ship_from | integer    | null: false                    |
-| ship_days | integer    | null: false                    |
-| user      | references | null: false, foreign_key: true |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| name         | string     | null: false                    |
+| text         | text       | null: false                    |
+| price        | integer    | null: false                    |
+| genre_id     | integer    | null: false                    |
+| condition_id | integer    | null: false                    |
+| ship_fee_id  | integer    | null: false                    |
+| ship_from_id | integer    | null: false                    |
+| ship_day_id  | integer    | null: false                    |
+| user         | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -41,7 +41,7 @@
 - belongs_to_active_hash :condition
 - belongs_to_active_hash :ship_fee
 - belongs_to_active_hash :ship_from
-- belongs_to_active_hash :ship_days
+- belongs_to_active_hash :ship_day
 
 ## orders テーブル
 
@@ -61,7 +61,7 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postal_code   | string     | null: false                    |
-| prefecture    | integer    | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | house_number  | string     | null: false                    |
 | building_name | string     |                                |

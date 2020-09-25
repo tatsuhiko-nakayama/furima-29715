@@ -7,12 +7,14 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
 
+  zenkaku_regex = /\A[ぁ-んァ-ン一-龥]/
+  katakana_regex = /\A[ァ-ヶー－]+\z/
   with_options presence: true do
     validates :nickname
-    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters' }
-    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: 'Full-width characters' }
-    validates :last_name_reading, format: { with: /\A[ァ-ヶー－]+\z/, message: 'Full-width katakana characters' }
-    validates :first_name_reading, format: { with: /\A[ァ-ヶー－]+\z/, message: 'Full-width katakana characters' }
+    validates :last_name, format: { with: zenkaku_regex, message: 'Full-width characters' }
+    validates :first_name, format: { with: zenkaku_regex, message: 'Full-width characters' }
+    validates :last_name_reading, format: { with: katakana_regex, message: 'Full-width katakana characters' }
+    validates :first_name_reading, format: { with: katakana_regex, message: 'Full-width katakana characters' }
     validates :birthday
   end
 

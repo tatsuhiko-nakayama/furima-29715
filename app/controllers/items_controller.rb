@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :move_to_show, only: :edit
 
   def index
-    @items = Item.all.order("created_at DESC")
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -43,8 +43,6 @@ class ItemsController < ApplicationController
 
   def move_to_show
     @item = Item.find(params[:id])
-    unless current_user == @item.user.id
-      redirect_to item_path(@item.id)
-    end
+    redirect_to item_path(@item.id) unless current_user == @item.user.id
   end
 end

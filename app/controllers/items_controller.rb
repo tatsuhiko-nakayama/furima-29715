@@ -43,6 +43,6 @@ class ItemsController < ApplicationController
 
   def move_to_show
     @item = Item.find(params[:id])
-    redirect_to item_path(@item.id) unless current_user == @item.user.id
+    redirect_to item_path(@item.id) unless current_user == @item.user
   end
 end

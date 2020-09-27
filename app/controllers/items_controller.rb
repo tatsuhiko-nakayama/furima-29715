@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :set_item, only: [:edit, :update, :show]
   before_action :move_to_show, only: :edit
 
   def index
@@ -19,11 +20,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item.id)
     else
@@ -32,7 +31,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   private
@@ -41,8 +39,12 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :text, :price, :genre_id, :condition_id, :ship_fee_id, :ship_from_id, :ship_day_id, :image).merge(user_id: current_user.id)
   end
 
-  def move_to_show
+  def set_item
     @item = Item.find(params[:id])
+  end
+
+  def move_to_show
+    set_item
     redirect_to item_path(@item.id) unless current_user == @item.user
   end
 end

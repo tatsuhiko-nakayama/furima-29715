@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :move_to_login
+  before_action :move_to_toppage
 
   def index
     @item = Item.find(params[:item_id])
@@ -31,6 +33,15 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency:'jpy'
     )
+  end
+
+  def move_to_login
+    redirect_to new_user_session_path unless user_signed_in?
+  end
+
+  def move_to_toppage
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if current_user.id == @item.user.id
   end
 
 end

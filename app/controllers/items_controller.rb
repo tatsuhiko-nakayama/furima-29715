@@ -53,7 +53,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_show
-    set_item
     redirect_to item_path(@item.id) unless current_user == @item.user
   end
 end

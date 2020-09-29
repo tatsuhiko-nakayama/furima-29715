@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :set_item_id, only: [:index, :create]
   before_action :move_to_login
   before_action :move_to_toppage
-
+  
   def index
-    @item = Item.find(params[:item_id])
     @order = OrderAddress.new
   end
 
@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
       @order.save
       return redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render 'index'
     end
   end
@@ -25,8 +24,11 @@ class OrdersController < ApplicationController
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
-  def pay_item
+  def set_item_id
     @item = Item.find(params[:item_id])
+  end
+
+  def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
@@ -40,7 +42,6 @@ class OrdersController < ApplicationController
   end
 
   def move_to_toppage
-    @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user.id || @item.order
   end
 

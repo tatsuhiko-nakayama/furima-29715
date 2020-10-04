@@ -16,6 +16,6 @@ function calculation (){
   });
 }
 
-if (document.URL.match( /new/ ) || document.URL.match( /edit/ )) {
+if (document.URL.match( /items/ )) {
   window.addEventListener('load', calculation);
 }

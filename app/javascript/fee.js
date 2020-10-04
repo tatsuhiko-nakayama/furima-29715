@@ -16,4 +16,6 @@ function calculation (){
   });
 }
 
-window.addEventListener('load', calculation);
+if (document.URL.match( /new/ ) || document.URL.match( /edit/ )) {
+  window.addEventListener('load', calculation);
+}
